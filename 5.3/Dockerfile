@@ -71,7 +71,7 @@ RUN apt-get update && apt-get install -y \
 	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
 	&& make clean \
 	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps &&\
-	&& rm -r /var/lib/apt/lists/*
+	rm -r /var/lib/apt/lists/*
 
 COPY docker-php-ext-* /usr/local/bin/
 
