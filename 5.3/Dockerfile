@@ -5,6 +5,7 @@ MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
 # phpize deps
 RUN apt-get update && apt-get install -y \
+		apt-utils \
 		autoconf \
 		file \
 		g++ \
