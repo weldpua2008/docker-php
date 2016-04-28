@@ -45,7 +45,7 @@ RUN apt-get update && apt-get install -y \
 	curl -fSL "http://php.net/get/$PHP_FILENAME.asc/from/this/mirror" -o "$PHP_FILENAME.asc" && \
 	export GNUPGHOME="$(mktemp -d)" && \
 	for key in $GPG_KEYS; do \
-		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+		gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys "$key"; \
 	done \
 	&& gpg --batch --verify "$PHP_FILENAME.asc" "$PHP_FILENAME" \
 	&& rm -r "$GNUPGHOME" "$PHP_FILENAME.asc" \
