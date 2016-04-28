@@ -14,9 +14,7 @@ RUN apt-get update && apt-get install -y \
 		make \
 		pkg-config \
 		re2c \
-	--no-install-recommends
-	&& \
-    # persistent / runtime deps
+	--no-install-recommends	&& \
     apt-get install -y \
 		ca-certificates \
 		curl \
