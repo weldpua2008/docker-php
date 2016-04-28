@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:wheezy
 
 # based on https://raw.githubusercontent.com/docker-library/php/4677ca134fe48d20c820a19becb99198824d78e3/5.5/Dockerfile
 
@@ -33,14 +33,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 	rm "$PHP_FILENAME" && \
 	cd /usr/src/php && \
 	./configure --with-config-file-path="$PHP_INI_DIR" \
-		--with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
-		--disable-cgi \
-		--enable-mysqlnd \
-		--enable-mbstring \
-		--with-curl \
-		--with-libedit \
-		--with-openssl \
-		--with-zlib $PHP_EXTRA_CONFIGURE_ARGS && \
+	--with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
+	--disable-cgi \
+	--enable-mysqlnd \
+	--enable-mbstring \
+	--with-curl \
+	--with-libedit \
+	--with-openssl \
+	--with-zlib $PHP_EXTRA_CONFIGURE_ARGS && \
 	make -j"$(nproc)" && \
 	make install && \
 	{ find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } && \
