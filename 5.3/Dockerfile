@@ -41,11 +41,11 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 		--with-libedit \
 		--with-openssl \
 		--with-zlib $PHP_EXTRA_CONFIGURE_ARGS && \
-	make -j"$(nproc)" \
-	&& make install \
-	&& { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
-	&& make clean \
-	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps &&\
+	make -j"$(nproc)" && \
+	make install && \
+	{ find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } && \
+	make clean && \
+	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps && \
 	rm -r /var/lib/apt/lists/*
 COPY docker-php-ext-* /usr/local/bin/
 
