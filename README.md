@@ -1,5 +1,7 @@
-[![](https://imagelayers.io/badge/weldpua2008/php:latest.svg)](https://imagelayers.io/?images=weldpua2008/php:latest 'Get your own badge on imagelayers.io')
 [![dockeri.co](http://dockeri.co/image/weldpua2008/php)](https://hub.docker.com/r/weldpua2008/php/)
+
+[![](https://imagelayers.io/badge/weldpua2008/php:latest.svg)](https://imagelayers.io/?images=weldpua2008/php:latest 'Get your own badge on imagelayers.io')
+
 [![Docker Pulls](https://img.shields.io/docker/pulls/weldpua2008/php.svg)](https://hub.docker.com/r/weldpua2008/php/)
 [![Docker Stars](https://img.shields.io/docker/stars/weldpua2008/php.svg)](https://hub.docker.com/r/weldpua2008/php/)
 [![GitHub issues](https://img.shields.io/github/issues/weldpua2008/php.svg)](https://github.com/weldpua2008/docker-php/issues) [![GitHub forks](https://img.shields.io/github/forks/weldpua2008/docker-php.svg)](https://github.com/weldpua2008/docker-php/network) [![GitHub stars](https://img.shields.io/github/stars/weldpua2008/docker-php.svg)](https://github.com/weldpua2008/docker-php/stargazers) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weldpua2008/docker-php/master/LICENSE) 
