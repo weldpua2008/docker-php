@@ -45,7 +45,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps && \
     set -ex && \
     cd /usr/local/etc && \
-    if [ -d php-fpm.d ]; then echo "for some reason, upstream's php-fpm.conf.default has \"include=NONE/etc/php-fpm.d/*.conf\" && \
+    if [ -d php-fpm.d ]; then echo "for some reason, upstream's php-fpm.conf.default has include=NONE/etc/php-fpm.d/*.conf"; \
         sed 's!=NONE/!=!g' php-fpm.conf.default | tee php-fpm.conf > /dev/null; \
         cp php-fpm.d/www.conf.default php-fpm.d/www.conf; \
     else \
@@ -56,7 +56,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
             echo '[global]'; \
             echo 'include=etc/php-fpm.d/*.conf'; \
         } | tee php-fpm.conf; \
-    fi \
+    fi  \
     && { \
         echo '[global]'; \
         echo 'error_log = /proc/self/fd/2'; \
