@@ -21,7 +21,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 	echo "$PHP_SHA256 *$PHP_FILENAME" | sha256sum -c -  && \
 	curl -fSL "http://php.net/get/$PHP_FILENAME.asc/from/this/mirror" -o "$PHP_FILENAME.asc" && \
 	export GNUPGHOME="$(mktemp -d)" && \
-	for key in $GPG_KEYS; do gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; done && \
+	for key in $GPG_KEYS; do gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys "$key"; done && \
 	gpg --batch --verify "$PHP_FILENAME.asc" "$PHP_FILENAME" && \
 	rm -r "$GNUPGHOME" "$PHP_FILENAME.asc" && \
 	mkdir -p /usr/src/php && \
