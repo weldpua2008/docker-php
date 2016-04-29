@@ -4,12 +4,15 @@ FROM debian:jessie
 MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
 COPY docker-php-ext-* /usr/local/bin/
+WORKDIR /var/www/html
+
 #
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && apt-get install -y autoconf file g++ gcc libc6-dev make pkg-config re2c --no-install-recommends && \
     echo "Installing  persistent / runtime deps " && \
     apt-get install -y ca-certificates curl libedit2 libsqlite3-0 libxml2 --no-install-recommends && \
     export PHP_INI_DIR="/usr/local/etc/php" && \
+    export PHP_EXTRA_CONFIGURE_ARGS=" --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data" && \
     export GPG_KEYS="1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763" && \
     export PHP_VERSION=7.0.5 && \
     export PHP_FILENAME=php-7.0.5.tar.xz && \
@@ -42,6 +45,43 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     make install && \
     { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; }  && \
     make clean && \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps && \
+    set -ex && \
+    cd /usr/local/etc && \
+    if [ -d php-fpm.d ]; then echo "for some reason, upstream's php-fpm.conf.default has include=NONE/etc/php-fpm.d/*.conf"; \
+        sed 's!=NONE/!=!g' php-fpm.conf.default | tee php-fpm.conf > /dev/null; \
+        cp php-fpm.d/www.conf.default php-fpm.d/www.conf; \
+    else \
+        echo "PHP 5.x don't use \"include=\" by default, so we'll create our own simple config that mimics PHP 7+ for consistency"; \
+        mkdir php-fpm.d; \
+        cp php-fpm.conf.default php-fpm.d/www.conf; \
+        { \
+            echo '[global]'; \
+            echo 'include=etc/php-fpm.d/*.conf'; \
+        } | tee php-fpm.conf; \
+    fi  \
+    && { \
+        echo '[global]'; \
+        echo 'error_log = /proc/self/fd/2'; \
+        echo; \
+        echo '[www]'; \
+        echo '; if we send this to /proc/self/fd/1, it never appears'; \
+        echo 'access.log = /proc/self/fd/2'; \
+        echo; \
+        echo 'clear_env = no'; \
+        echo; \
+        echo '; Ensure worker stdout and stderr are sent to the main error log.'; \
+        echo 'catch_workers_output = yes'; \
+    } | tee php-fpm.d/docker.conf \
+    && { \
+        echo '[global]'; \
+        echo 'daemonize = no'; \
+        echo; \
+        echo '[www]'; \
+        echo 'listen = [::]:9000'; \
+    } | tee php-fpm.d/zz-docker.conf
 
-CMD ["php", "-a"]
+
+
+EXPOSE 9000
+CMD ["php-fpm"]
