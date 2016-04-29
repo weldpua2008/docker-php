@@ -3,6 +3,9 @@ FROM debian:jessie
 
 MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
+COPY docker-php-ext-* /usr/local/bin/
+WORKDIR /var/www/html
+
 #
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && apt-get install -y autoconf file g++ gcc libc6-dev make pkg-config re2c --no-install-recommends && \
@@ -79,8 +82,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     } | tee php-fpm.d/zz-docker.conf
 
 
-COPY docker-php-ext-* /usr/local/bin/
-WORKDIR /var/www/html
 
 EXPOSE 9000
 CMD ["php-fpm"]
