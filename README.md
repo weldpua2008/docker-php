@@ -4,7 +4,7 @@ PHP is a server-side scripting language designed for web development, but which 
 
 How to install more PHP extensions
 
-We provide the helper scripts docker-php-ext-configure, docker-php-ext-install, and docker-php-ext-enable to more easily install PHP extensions.
+We provide the helper scripts docker-php-ext-configure, docker-php-ext-install, and docker-php-ext-enable ([from docker lib](https://github.com/docker-library/php)) to more easily install PHP extensions.
 
 # PHP Core Extensions
 
@@ -58,4 +58,6 @@ RUN curl -fsSL 'https://xcache.lighttpd.net/pub/Releases/3.2.0/xcache-3.2.0.tar.
 
 # Without a Dockerfile
 If you don't want to include a Dockerfile in your project, it is sufficient to do the following:
+```
 $ docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html weldpua2008:php-5.3
+```
