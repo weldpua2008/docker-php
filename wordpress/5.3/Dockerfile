@@ -17,6 +17,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 		echo 'opcache.fast_shutdown=1'; \
 		echo 'opcache.enable_cli=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini && \
+	export WORDPRESS_VERSION=4.5.2 && \
+	export WORDPRESS_SHA1=bab94003a5d2285f6ae76407e7b1bbb75382c36e && \
 	curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz && \
 	echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c - && \
 	tar -xzf wordpress.tar.gz -C /usr/src/ && \

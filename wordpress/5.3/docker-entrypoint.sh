@@ -1,4 +1,5 @@
 #!/bin/bash
+# based on https://raw.githubusercontent.com/docker-library/wordpress/61dd78ce4fa9ccd592ead1edb379f209533b850c/fpm/docker-entrypoint.shs
 set -e
 
 if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
