@@ -1,4 +1,4 @@
-FROM weldpua2008:5.3.27-fpm
+FROM weldpua2008/php:5.3.27-fpm
 
 MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
