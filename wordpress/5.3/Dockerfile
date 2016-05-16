@@ -10,6 +10,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 	rm -rf /var/lib/apt/lists/* && \
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
 	docker-php-ext-install gd mysqli mbstring mcrypt zip pdo_mysql && \
+	pecl install -o -f zendopcache && \
 	{ \
 		echo 'opcache.memory_consumption=128'; \
 		echo 'opcache.interned_strings_buffer=8'; \
