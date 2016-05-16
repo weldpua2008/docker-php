@@ -4,6 +4,7 @@ MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
 VOLUME /var/www/html
 RUN export DEBIAN_FRONTEND=noninteractive && \
+	set -x && \
 	apt-get update && \
 	apt-get install -y libpng12-dev libjpeg-dev && \
 	rm -rf /var/lib/apt/lists/* && \
