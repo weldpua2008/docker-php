@@ -3,6 +3,7 @@ FROM weldpua2008/php:5.3-fpm
 MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
 VOLUME /var/www/html
+# yes '' | pecl install -f apc
 RUN export DEBIAN_FRONTEND=noninteractive && \
 	set -x && \
 	apt-get update && \
