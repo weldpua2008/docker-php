@@ -8,6 +8,14 @@ WORKDIR /var/www/html
 
 #
 RUN export DEBIAN_FRONTEND=noninteractive && \
+    export DEBIAN_RELEASE=$(awk -F'[" ]' '/VERSION=/{print $3}'  /etc/os-release | tr -cd '[[:alnum:]]._-' ) && \
+    [[ "x${DEBIAN_RELEASE}" = "x" ]] && export DEBIAN_RELEASE="unstable" || echo "it's ok" && \
+    echo "deb http://httpredir.debian.org/debian ${DEBIAN_RELEASE} main  contrib non-free " > /etc/apt/sources.list && \
+    echo "deb http://httpredir.debian.org/debian ${DEBIAN_RELEASE}-updates main  contrib non-free " >> /etc/apt/sources.list && \
+    echo "deb http://security.debian.org ${DEBIAN_RELEASE}/updates main  contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src  http://httpredir.debian.org/debian ${DEBIAN_RELEASE} main  contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src  http://httpredir.debian.org/debian ${DEBIAN_RELEASE}-updates main  contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src  http://security.debian.org ${DEBIAN_RELEASE}/updates main  contrib non-free" >> /etc/apt/sources.list && \
     apt-get update && apt-get install -y autoconf file g++ gcc libc6-dev make pkg-config re2c --no-install-recommends && \
     echo "Installing  persistent / runtime deps " && \
     apt-get install -y ca-certificates curl libedit2 libsqlite3-0 libxml2 --no-install-recommends && \
