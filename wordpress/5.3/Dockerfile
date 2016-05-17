@@ -1,4 +1,5 @@
 FROM debian:wheezy
+# based on https://raw.githubusercontent.com/docker-library/php/4677ca134fe48d20c820a19becb99198824d78e3/5.5/Dockerfile
 
 MAINTAINER Valeriy Solovyov <weldpua2008@gmail.com>
 
