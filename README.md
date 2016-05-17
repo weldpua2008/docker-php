@@ -19,7 +19,7 @@ We provide the helper scripts docker-php-ext-configure, docker-php-ext-install, 
 For example, if you want to have a PHP-FPM image with iconv, mcrypt and gd extensions, you can inherit the base image that you like, and write your own Dockerfile like this:
 
 ```
-FROM weldpua2008:php-5.3
+FROM weldpua2008/php:5.3-fpm
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -37,7 +37,7 @@ Remember, you must install dependencies for your extensions manually. If an exte
 Some extensions are not provided with the PHP source, but are instead available through PECL. To install a PECL extension, use pecl install to download and compile it, then use docker-php-ext-enable to enable it:
 
 ```
-FROM weldpua2008:php-5.3
+FROM weldpua2008/php:5.3-fpm
 RUN apt-get update && apt-get install -y libmemcached-dev \
     && pecl install memcached \
     && docker-php-ext-enable memcached
@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y libmemcached-dev \
 Some extensions are not provided via either Core or PECL; these can be installed too, although the process is less automated:
 
 ```
-FROM weldpua2008:php-5.3
+FROM weldpua2008/php:5.3-fpm
 RUN curl -fsSL 'https://xcache.lighttpd.net/pub/Releases/3.2.0/xcache-3.2.0.tar.gz' -o xcache.tar.gz \
     && mkdir -p xcache \
     && tar -xf xcache.tar.gz -C xcache --strip-components=1 \
@@ -67,5 +67,5 @@ RUN curl -fsSL 'https://xcache.lighttpd.net/pub/Releases/3.2.0/xcache-3.2.0.tar.
 # Without a Dockerfile
 If you don't want to include a Dockerfile in your project, it is sufficient to do the following:
 ```
-$ docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html weldpua2008:php-5.3
+$ docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html weldpua2008/php:5.3-fpm
 ```
